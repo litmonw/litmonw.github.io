@@ -1,5 +1,6 @@
 /* 导入组件 */
 import Index from '../pages/index.vue'
+import Post from '../pages/post.vue'
 import Read from '../pages/read.vue'
 import Think from '../pages/think.vue'
 import Work from '../pages/work.vue'
@@ -16,7 +17,7 @@ export default [
   {
     name: 'post',
     path: '/post',
-    component: Index,
+    component: Post,
   },
   {
     name: 'postDetail',

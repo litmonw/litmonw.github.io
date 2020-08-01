@@ -1,9 +1,17 @@
 <template>
   <div id="app">
     <app-top-bar
+      v-if="!specialPage"
       :current-tab-id.sync="currentTabId"
     />
-    <div class="layout-main">
+    <router-view
+      v-if="specialPage"
+      @changeTab="changeTab"
+    />
+    <div
+      v-else
+      class="layout-main"
+    >
       <!-- <keep-alive> -->
       <router-view
         @changeTab="changeTab"
@@ -31,11 +39,19 @@ export default {
       }
 
       return true
+    },
+    specialPage() {
+      const routePath = this.$route.path
+      if (['/'].includes(routePath)) {
+        return true
+      }
+
+      return false
     }
   },
   methods: {
     changeTab(name) {
-      this.currentTabId = '';
+      this.currentTabId = ''
     }
   }
 }

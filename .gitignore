@@ -1,6 +1,8 @@
+.DS_Store
+
 # Editor and IDE config
 .vscode
 
 # Node.js files
 node_modules
-dist
+/dist/
