@@ -19,12 +19,17 @@
       <!-- </keep-alive> -->
     </div>
     <app-footer v-if="filterRouter" />
+    <back-top />
   </div>
 </template>
 
 <script>
+import BackTop from '../src/components/BackTop'
 export default {
   name: 'App',
+  components: {
+    BackTop
+  },
   data() {
     return {
       currentTabId: 'post'
