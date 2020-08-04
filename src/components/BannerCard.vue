@@ -13,7 +13,10 @@
           <div class="card-section">
             来自文章/技术
           </div>
-          <button class="action-btn">
+          <button
+            class="action-btn"
+            @click="jumpToTarget(item.path)"
+          >
             阅读全文
           </button>
         </div>
@@ -42,6 +45,15 @@
 <script>
 export default {
   name: 'BannerCard',
+  data() {
+    return {
+    }
+  },
+  methods: {
+    jumpToTarget(path) {
+      this.$router.push(path)
+    }
+  }
 }
 </script>
 
@@ -60,6 +72,7 @@ export default {
   overflow: hidden;
   background-color: #fff;
   border-radius: 5px;
+  box-shadow: 0 5px 20px 0 rgba(43, 41, 41, .15);
 
   @media screen and (min-width: $screen-sm-min) {
     border-radius: 12px;
@@ -138,6 +151,12 @@ export default {
       padding: 9px 22px;
       font-size: 18px;
       border-radius: 40px;
+      outline: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0084ff96;
+      }
 
       @media screen and (max-width: $screen-md-min) {
         margin-top: 24px;

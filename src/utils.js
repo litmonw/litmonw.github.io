@@ -10,6 +10,10 @@ function getScrollTop() {
   return scroll_top
 }
 
+const getClientHeight = () => {
+  return window.innerHeight
+}
+
 const deployAxios = (obj) => {
   obj.defaults.baseURL = '/api'
   return obj
@@ -21,6 +25,7 @@ const cloneDeep = (obj) => {
 
 module.exports = {
   getScrollTop,
+  getClientHeight,
   deployAxios,
   cloneDeep
 }

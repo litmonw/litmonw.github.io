@@ -18,6 +18,7 @@ import camelCase from 'lodash/camelCase'
 
 import 'normalize.css/normalize.css'
 import './assets/style/app.scss'
+import 'remixicon/fonts/remixicon.css'
 
 const utils = require('./utils')
 const { deployAxios } = utils

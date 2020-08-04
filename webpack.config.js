@@ -1,7 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+var path = require('path')
+var webpack = require('webpack')
+const autoprefixer = require('autoprefixer')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = [
   {
@@ -19,9 +19,9 @@ module.exports = [
       proxy: {
         '/api/': {
           target: 'http://localhost:3000',
-          pathRewrite: {'/api/': ''},
+          pathRewrite: { '/api/': '' },
           changeOrigin: true,
-          secure: false
+          secure: false,
         },
       },
     },
@@ -94,7 +94,7 @@ module.exports = [
           ],
         },
         {
-          test: /\.(png|jpg|jpe?g|gif)$/i,
+          test: /\.(png|jpg|jpe?g|gif|ttf|eot|svg|woff|woff2|otf)$/i,
           use: [
             {
               loader: 'file-loader',
@@ -104,6 +104,10 @@ module.exports = [
             },
           ],
         },
+        // {
+        //   test: /\.(ttf|eot|svg|woff|woff2|otf)$/,
+        //   use: 'url-loader'
+        // }
       ],
     },
     plugins: [
@@ -111,4 +115,4 @@ module.exports = [
       new VueLoaderPlugin(),
     ],
   },
-];
+]

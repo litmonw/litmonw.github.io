@@ -20,6 +20,7 @@
           <ul class="module-list">
             <li
               v-for="item in tabs"
+              :key="item.id"
               :class="{'active': item.id === currentTabId}"
               class="module"
               @click="switchTab(item.id)"
@@ -124,14 +125,12 @@
       class="mask"
       @click="closeSearchPanel"
     />
-    </div>
-    </div>
     <app-tabs :current-tab-id.sync="currentTabId" />
   </header>
 </template>
 
 <script>
-import MicroFooter from '../components/MicroFooter';
+import MicroFooter from '../components/MicroFooter'
 
 export default {
   name: 'AppTopBar',
@@ -140,6 +139,7 @@ export default {
   },
   props: {
     currentTabId: {
+      type: String,
       default: ''
     }
   },
@@ -165,7 +165,7 @@ export default {
     }
   },
   watch: {
-    $route(to, from) {
+    $route() {
       const routeName = this.$route.name
       if (this.tabs.map(item => item.id).includes(routeName)) {
         this.$emit('update:currentTabId', routeName)
@@ -185,20 +185,20 @@ export default {
       this.$router.push(`/${id}`)
     },
     showSidebar() {
-      this.sidebarStatus = true;
+      this.sidebarStatus = true
     },
     closeSidebar() {
-      this.sidebarStatus = false;
+      this.sidebarStatus = false
     },
     showSearchPanel() {
-      this.keyword = '';
-      this.searchPanelStatus = true;
+      this.keyword = ''
+      this.searchPanelStatus = true
       this.$nextTick(() => {
-        this.$refs.searchInput.focus();
+        this.$refs.searchInput.focus()
       })
     },
     closeSearchPanel() {
-      this.searchPanelStatus = false;
+      this.searchPanelStatus = false
     },
     openAboutPage() {
 
