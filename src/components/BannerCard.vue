@@ -1,17 +1,25 @@
 <template>
   <div class="card-container">
-    <div class="card">
+    <div
+      v-for="item in bannerList"
+      :key="item.id"
+      class="card"
+      @click="jumpToTarget(item.path)"
+    >
       <div class="card-info">
         <div class="card-info-inner">
           <div class="card-date">
-            <span class="card-day">28</span>
-            <span class="card-year-month"> Jul 2020</span>
+            <span class="card-day">{{ getBannerDay(item.date) }}</span>
+            <span class="card-year-month">{{ getBannerMonth(item.date) }} {{ getBannerYear(item.date) }}</span>
           </div>
           <div class="card-title">
-            19年下半年已定档的19部恐怖片，你一定不想错过测试测试测试测试测试...
+            {{ item.title }}
           </div>
-          <div class="card-section">
-            来自文章/技术
+          <div
+            class="card-section"
+            @click.stop="jumpToTarget(item.sectionPath)"
+          >
+            来自 <span class="card-section-highlight">{{ item.sectionName }}</span>
           </div>
           <button
             class="action-btn"
@@ -23,18 +31,18 @@
       </div>
       <div class="card-cover">
         <p class="card-float-date">
-          28 Jul 2020
+          {{ getBannerYear(item.date) }}.{{ getBannerMonth(item.date, false) }}.{{ getBannerDay(item.date) }}
         </p>
         <img
-          src="../assets/img/banner2.jpg"
+          :src="item.cover"
           alt="banner img"
         >
         <div class="card-float-info">
           <p class="card-float-title">
-            离玥传：零下记忆
+            {{ item.sectionName }}
           </p>
           <p class="card-float-description">
-            沉浸式悬疑推理，生存下去揭露真相
+            {{ item.title }}
           </p>
         </div>
       </div>
@@ -47,9 +55,48 @@ export default {
   name: 'BannerCard',
   data() {
     return {
+      bannerList: [
+        {
+          title: '19年下半年已定档的19部恐怖片，你一定不想错过',
+          cover: require('../assets/img/banner2.jpg'),
+          date: '2020-07-08',
+          path: '/post',
+          sectionName: '前端/技术',
+          sectionPath: '/post/1'
+        }
+      ]
     }
   },
   methods: {
+    getBannerDay(date) {
+      return this.$dayjs(date).format('DD')
+    },
+    getBannerYear(date) {
+      return this.$dayjs(date).format('YYYY')
+    },
+    getBannerMonth(date, isConvert = false) {
+      const month = this.$dayjs(date).format('MM')
+      const monthConvertDict = {
+        '01': 'Jan',
+        '02': 'Feb',
+        '03': 'Mar',
+        '04': 'Apr',
+        '05': 'May',
+        '06': 'Jun',
+        '07': 'Jul',
+        '08': 'Aug',
+        '09': 'Sep',
+        '10': 'Oct',
+        '11': 'Nov',
+        '12': 'Dec'
+      }
+
+      if (isConvert) {
+        return monthConvertDict[month]
+      }
+
+      return month
+    },
     jumpToTarget(path) {
       this.$router.push(path)
     }
@@ -72,6 +119,7 @@ export default {
   overflow: hidden;
   background-color: #fff;
   border-radius: 5px;
+  cursor: pointer;
   box-shadow: 0 5px 20px 0 rgba(43, 41, 41, .15);
 
   @media screen and (min-width: $screen-sm-min) {
@@ -97,9 +145,14 @@ export default {
 
 
     .card-date {
-      display: flex;
+      display: flex; 
       flex-direction: column;
       font-weight: 500;
+      cursor: pointer;
+
+      &:hover {
+        color: #0084ff;
+      }
 
       .card-day {
         line-height: 56px;
@@ -127,6 +180,11 @@ export default {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      cursor: pointer;
+
+        &:hover {
+          color: #0084ff;
+        }
 
         @media screen and (max-width: $screen-md-min) {
           margin-bottom: 24px;
@@ -140,6 +198,13 @@ export default {
 
       @media screen and (max-width: $screen-md-min) {
         font-size: 16px;
+      }
+
+      .card-section-highlight {
+        cursor: pointer;
+        &:hover {
+          color: #0084ff;
+        }
       }
     }
 
@@ -239,6 +304,11 @@ export default {
         .card-float-description {
           font-size: 13px;
           line-height: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
         }
       } 
     }

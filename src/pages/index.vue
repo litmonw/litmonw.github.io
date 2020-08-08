@@ -18,7 +18,7 @@
             @click="jumpToSectionPage(item.path)"
           >
             <div class="section-icon">
-              <i :class="item.icon" />
+              <app-icon :name="item.icon" />
             </div>
             <div class="section-info">
               <h3 class="section-name">

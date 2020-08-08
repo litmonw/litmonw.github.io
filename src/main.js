@@ -15,6 +15,7 @@ router.afterEach((to, from) => {
 
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
+import dayjs from 'dayjs'
 
 import 'normalize.css/normalize.css'
 import './assets/style/app.scss'
@@ -26,6 +27,7 @@ import swal from 'sweetalert'
 
 Vue.prototype.$swal = swal
 Vue.prototype.$utils = utils
+Vue.prototype.$dayjs = dayjs
 
 // marked + highlight.js config
 marked.setOptions({

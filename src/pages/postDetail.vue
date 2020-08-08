@@ -66,8 +66,6 @@ export default {
       navList: [],
       docsFirstLevels: [],
       docsSecondLevels: [],
-      // activeIndex: 0,
-      // childrenActiveIndex: 0,
       article: {},
       scrollTop: 0,
       toc: []

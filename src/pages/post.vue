@@ -26,52 +26,33 @@
         >
           <div class="about">
             <p class="section-title">
-              关于
+              文章标签
             </p>
             <div class="section-body">
-              <img
-                class="avatar"
-                src="../assets/img/avatar.png"
-                alt="avatar"
+              <span
+                v-for="item in tags"
+                :key="item.id"
               >
-              <p class="author-name">
-                litmonw
-              </p>
-              <p class="author-desc">
-                Coding is a Superpower！
-              </p>
-              <div class="social-list">
-                <i class="iconfont icon-zhihu" />
-                <i class="iconfont icon-weibo" />
-                <i class="iconfont icon-yuque" />
-                <i class="iconfont icon-github" />
-              </div>
+                <a :href="`/post/tag/${item}`">
+                  <em>#</em>{{ item }}
+                </a>
+              </span>
             </div>
           </div>
-          <div class="friends">
+          <div class="popular-posts">
             <p class="section-title">
-              朋友
+              热门文章
             </p>
             <div class="section-body">
-              <ul class="friend-list">
+              <ul class="posts">
                 <li
-                  v-for="item in friends.slice(0, 2)"
+                  v-for="item in popularPosts"
                   :key="item.id"
-                  class="friend-item"
+                  class="post"
+                  @click="openDetailPage(item)"
                 >
-                  <div class="friend-avatar">
-                    <img
-                      :src="item.avatar"
-                      alt="friend-avatar"
-                    >
-                  </div>
-                  <div class="friend-info">
-                    <div class="friend-name">
-                      {{ item.name }}
-                    </div>
-                    <div class="friend-desc">
-                      {{ item.desc }}
-                    </div>
+                  <div class="post-title">
+                    {{ item.title }}
                   </div>
                 </li>
               </ul>
@@ -101,7 +82,8 @@ export default {
       scrollTop: 0,
       pageWidth: 0,
       removeScrollPageWidth: 0,
-      friends: []
+      popularPosts: [],
+      tags: []
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -113,7 +95,7 @@ export default {
   computed: {
     stickRightSpan() {
       const width = this.removeScrollPageWidth
-      const asideRightSpan = (width - 960) / 2
+      const asideRightSpan = (width - 992) / 2
       return `${ asideRightSpan > 0 ? asideRightSpan : 0 }px`
     },
     overflowHeader() {
@@ -135,12 +117,17 @@ export default {
     this.currentPage = parseInt(page)
     this.getList(page)
 
-    this.getFriends()
+    this.getPopularPosts()
+    this.getPostTags()
 
     this.pageWidth = window.innerWidth
     this.removeScrollPageWidth = document.body.clientWidth
 
-    window.addEventListener('scroll',this.handleScroll)
+    setTimeout(() => {
+      this.removeScrollPageWidth = document.body.clientWidth
+    }, 5000)
+
+    window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
   },
   methods: {
@@ -168,18 +155,31 @@ export default {
         this.feeds = feeds
       })
     },
-    getFriends() {
-      this.$http.get('/friends/list').then(res => {
+    getPopularPosts() {
+      this.$http.get('/post/popular/random', {
+        params: {
+          amount: 5
+        }
+      }).then(res => {
         if(![200, 204].includes(res.status)) {
           this.$notify('登录失败！服务器失去响应')
           return
         }
 
-        this.friends = res.data.data
+        this.popularPosts = res.data.data
+      })
+    },
+    getPostTags() {
+      this.$http.get('/post/tag/random', {
+        params: {
+          amount: 5
+        }
+      }).then(res => {
+        // TODO: 为了更加符合页面美观，返回的数据应该组成每行 25%,75% 比例的宽度
+        this.tags = res.data.data
       })
     },
     openDetailPage(item) {
-      console.log(item)
       this.$router.push({
         name: 'postDetail',
         params: {
@@ -204,7 +204,7 @@ export default {
   min-height: calc(100vh - 101px);
   overflow: hidden;
   
-  .post {
+  & > .post {
     margin: 16px auto 0;
     max-width: 992px;
   }
@@ -241,106 +241,103 @@ export default {
       display: block;
     }
 
-    .about, .friends {
+    .about, .popular-posts {
       background-color: #fff;
       margin-bottom: 16px;
       box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
 
       .section-title {
-        padding: 12px 16px;
+        padding: 0 16px;
+        height: 52px;
+        line-height: 52px;
         font-size: 14px;
-        border-bottom: 1px solid #e8eaed;
+        border-bottom: 1px solid #f6f6f6;
       }
 
       .section-body {
         overflow: hidden;
+      }
+    }
 
-        .avatar {
-          display: block;
-          margin: 12px auto 6px;
-          width: 80px;
-          height: 80px;
-          border-radius: 5px;
-        }
+    .popular-posts {
+      .posts {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding-left: 0;
+        list-style-type: none;
 
-        .author-name {
-          font-size: 18px;
-          line-height: 24px;
-          font-weight: 500;
-          text-align: center;
-        }
-
-        .author-desc {
-          font-size: 14px;
-          line-height: 20px;
-          text-align: center;
-        }
-
-        .social-list {
+        .post {
           display: flex;
-          justify-content: space-around;
-          margin-top: 8px;
-          margin-bottom: 8px;
+          width: 100%;
+          padding: 12px 16px;
           cursor: pointer;
 
-          i {
-            font-size: 32px;
-            color: #8590a6;
+          &:hover {
+            background-color: hsla(0,0%,84.7%,.1);
+          }
 
-            &:hover {
-              color: #0084ff;
-            }
+          .post-title {
+            display: -webkit-box;
+            font-size: 14px;
+            line-height: 24px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
           }
         }
+      }
+    }
 
-        .friend-list {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 0;
-          padding-left: 0;
-          list-style-type: none;
+    .about {
+      .section-body {
+        display: flex;
+        flex-wrap: wrap;
+        padding-top: 10px;
+      }
 
-          .friend-item {
-            display: flex;
-            width: 100%;
-            padding: 12px 16px;
-            cursor: pointer;
+      span {
+        padding: 0 10px;
+        width: 50%;
+        margin-bottom: 10px;
 
-            &:hover {
-              background-color: hsla(0,0%,84.7%,.1);
+        a {
+          display: block;
+          padding: 0 10px;
+          height: 36px;
+          line-height: 36px;
+          font-size: 14px;
+          color: #2c3e50;
+          background-color: #f7fafa;
+          border-radius: 4px;
+          white-space: nowrap;
+          text-decoration: none;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          &:hover {
+            color: #fff;
+            background-color: #0084ff;
+
+            em {
+              color: #0084ff;
+              background-color: #fff;
             }
+          }
 
-            .friend-avatar {
-              flex-shrink: 0;
-              width: 46px;
-              height: 46px;
-              background-color: #eee;
-
-              img {
-                width: 100%;
-                height: 100%;
-              }
-            }
-
-            .friend-info {
-              margin-left: 12px;
-
-              .friend-name {
-                font-size: 14px;
-                line-height: 20px;
-                color: #333;
-              }
-
-              .friend-desc {
-                display: -webkit-box;
-                font-size: 12px;
-                color: #909090;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-              }
-            }
+          em {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-right: 5px;
+            font-size: 12px;
+            line-height: 18px;
+            background-color: #9199a1;
+            border-radius: 50%;
+            color: #fff;
+            text-align: center;
           }
         }
       }
