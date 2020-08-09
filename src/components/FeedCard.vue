@@ -37,12 +37,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          // category: '前端',
-          // tag: '学习',
-          // title: '如何评价程序员社区网站思否（Segmentfault）和掘金',
-          // content: '然后我也会经常的逛一逛SF，在上面找一些感兴趣的问题回答一下。然后在17年五六月份时，在上面写了几篇比较水的文章，每篇几千阅读量，也还行。',
-          // likeCount: 153,
-          // commentCount: 12
+          // ['category', 'tag', 'title', 'content', 'likeCount', 'commentCount']
         }
       }
     }
@@ -84,7 +79,7 @@ export default {
   width: 100%;
   border-radius: 5px;
   cursor: pointer;
-  word-break: break-all;
+  word-break: break-word;
 
   &:hover {
     background-color: rgba(0,0,0,.01);
@@ -110,6 +105,9 @@ export default {
     .card-title {
       font-size: 18px;
       font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       &:hover {
         text-decoration: underline;

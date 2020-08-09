@@ -215,8 +215,8 @@ export default {
   margin-top: 16px;
 
   .feeds {
+    max-width: 732px;
     background-color: #fff;
-    flex-grow: 1;
 
     .feeds-footer {
       display: flex;

@@ -149,7 +149,7 @@ export default {
       text-overflow: ellipsis;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      word-break: break-all;
+      word-break: break-word;
 
       &:hover {
         color: $primary-color;

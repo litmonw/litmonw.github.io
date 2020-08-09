@@ -33,8 +33,17 @@
       </div>
     </div>
     <footer>
-      <span>@2020</span>
-      <span>蜀ICP备13013524号</span>
+      <div
+        class="footer-left"
+        @click="jump"
+      >
+        <span data-section="about">关于</span>
+        <span data-section="friends">朋友</span>
+      </div>
+      <div class="footer-right">
+        <span>@2020</span>
+        <span>蜀ICP备13013524号</span>
+      </div>
     </footer>
   </div>
 </template>
@@ -102,6 +111,10 @@ export default {
   methods: {
     jumpToSectionPage(path) {
       this.$router.push(`/${path}`)
+    },
+    jump(e) {
+      const sectionName = e.target.getAttribute('data-section')
+      this.$router.push(`/${sectionName}`)
     }
   }
 }
@@ -204,22 +217,35 @@ export default {
 }
 
 footer {
-  // position: fixed;
   position: absolute;
   bottom: 0;
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 20px;
+  padding: 0 20px;
   width: 100%;
   height: 40px;
+  display: flex;
+  justify-content: space-between;
   line-height: 40px;
   font-size: 14px;
   background-color: #f5f5f5;
   color: #bbb;
   border-top: 1px solid hsla(0,0%,100%, .1);
 
-  span {
-    margin-left: 20px;
+  @media screen and (min-width: $screen-sm-min) {
+    font-size: 12px;
+  }
+
+  .footer-left {
+    span {
+      margin-right: 20px;
+      color: #888;
+      cursor: pointer;
+    }
+  }
+
+  .footer-right {
+    span {
+      margin-left: 20px;
+    }
   }
 }
 </style> 

@@ -177,6 +177,7 @@ export default {
       font-size: 36px;
       overflow: hidden;
       text-overflow: ellipsis;
+      word-break: break-word;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
