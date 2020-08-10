@@ -15,6 +15,7 @@
           <div class="feeds-footer">
             <app-pagination
               v-model="currentPage"
+              :total="pageTotal"
               @change-page="changePage"
             />
           </div>
@@ -83,7 +84,8 @@ export default {
       pageWidth: 0,
       removeScrollPageWidth: 0,
       popularPosts: [],
-      tags: []
+      tags: [],
+      pageTotal: 0
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -148,11 +150,12 @@ export default {
     getList(page) {
       this.$http.get('/post/list', {
         params: {
-          offset: page
+          page: page
         }
       }).then(res => {
-        const feeds = res.data.data
+        const feeds = res.data.data.list
         this.feeds = feeds
+        this.pageTotal = res.data.data.total
       })
     },
     getPopularPosts() {
@@ -215,7 +218,7 @@ export default {
   margin-top: 16px;
 
   .feeds {
-    max-width: 732px;
+    width: 732px;
     background-color: #fff;
 
     .feeds-footer {

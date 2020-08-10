@@ -14,17 +14,22 @@
       1
     </li>
     <li
-      class="disabled" v-show="currentPage > 3 && pageCount > 4">...</li>
+      v-show="currentPage > 3 && pageCount > 4"
+      class="disabled"
+    >
+      ...
+    </li>
     <li
       v-for="item in pageList"
+      :key="item.id"
       :class="{'active': currentPage === item}"
       @click="switchPage(item)"
     >
       {{ item }}
     </li>
     <li
-      class="disabled"
       v-show="currentPage < pageCount - 2 && pageCount > 4"
+      class="disabled"
       @click="switchPage(pageCount)"
     >
       ...
@@ -47,15 +52,18 @@
 
 <script>
 export default {
-  name: 'app-pagination',
+  name: 'AppPagination',
   props: {
     value: {
+      type: Number,
       default: 1
     },
     total: {
+      type: Number,
       default: 100
     },
     pageSize: {
+      type: Number,
       default: 10
     }
   },
@@ -63,11 +71,6 @@ export default {
     return {
       currentPage: 1,
       pageCount: 0
-    }
-  },
-  watch: {
-    value(val) {
-      this.currentPage = val
     }
   },
   computed: {
@@ -93,6 +96,15 @@ export default {
       return prepareList.length ? prepareList : [1]
     }
   },
+  watch: {
+    value(val) {
+      this.currentPage = val
+    },
+    total() {
+      const { total, pageSize} = this
+      this.pageCount = Math.ceil(total / pageSize)
+    }
+  },
   mounted() {
     const { total, pageSize} = this
     if (!total || !pageSize) {
@@ -104,10 +116,10 @@ export default {
   methods: {
     switchPage(page) {
       if (this.currentPage === page || page > this.pageCount || page < 1) {
-        return false;
+        return false
       }
 
-      this.currentPage = page;
+      this.currentPage = page
 
       this.$emit('change-page', page)
     }
