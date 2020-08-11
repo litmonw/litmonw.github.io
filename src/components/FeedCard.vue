@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <span class="card-category">{{ feed.category }}</span>/
-      <span class="card-tag">{{ feed.tag }}</span>
+      <span class="card-category">{{ feed.category }}</span> / <span class="card-tag">{{ feed.tag }}</span>
+      <span class="card-date">{{ getRelativeTime(feed.createTime) }}</span>
     </div>
     <div class="card-main">
       <div class="card-title">
@@ -19,12 +19,17 @@
       </div>
     </div>
     <div class="card-footer">
+      <div class="card-view-count">
+        <app-icon name="ri-eye-line" />
+        {{ getReadCountText(feed.readCount) }} 阅读
+      </div>
       <div class="card-like-count">
+        <app-icon name="ri-thumb-up-line" />
         {{ feed.likeCount }} 点赞
       </div>
-      <div class="card-comment-count">
+      <!-- <div class="card-comment-count">
         {{ feed.commentCount }} 评论
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -51,6 +56,32 @@ export default {
     }
   },
   methods: {
+    getRelativeTime(createTime) {
+      const currentTime = this.$dayjs()
+      const actualTime = this.$dayjs(createTime)
+      const differenceHourValue = currentTime.diff(actualTime, 'h')
+      const differenceMinuteValue = currentTime.diff(actualTime, 'm')
+      const differenceSecondValue = currentTime.diff(actualTime, 's')
+
+      if (differenceMinuteValue < 1) {
+        return `${differenceSecondValue}秒前`
+      }
+
+      if (differenceHourValue < 1) {
+        return `${differenceMinuteValue}分钟前`
+      }
+
+      if (differenceHourValue >=1 && differenceHourValue < 24) {
+        return `${differenceHourValue}小时前`
+      }
+
+      const differenceDayValue = currentTime.diff(actualTime, 'd')
+      if (differenceDayValue > 0 && differenceDayValue <= 7) {
+        return `${differenceDayValue}天前`
+      }
+
+      return actualTime.format('YYYY-MM-DD hh:mm')
+    },
     replaceContent(content) {
       // 去掉标题符号 # 包括所有文字。
       const replaceContent = content.replace(/(#+)[^#][^\n]*?(?:\n)/g, '')
@@ -67,6 +98,9 @@ export default {
       })
 
       return replaceContent3
+    },
+    getReadCountText(count) {
+      return count >= 1000 ? `${(count / 1000).toFixed(1)}k` : count
     }
   }
 }
@@ -96,7 +130,8 @@ export default {
   }
 
   .card-header {
-    font-size: 14px;
+    font-size: 12px;
+    color: #8590a6;
   }
 
   .card-main {
@@ -132,8 +167,14 @@ export default {
     font-size: 13px;
     color: #8590a6;
 
+    i {
+      margin-right: 4px;
+    }
+
     div {
+      display: flex;
       margin-left: 8px;
+      align-items: center;
     }
   }
 }
