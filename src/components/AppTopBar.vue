@@ -287,14 +287,14 @@ export default {
           padding: 0 18px;
 
           &.active {
-            color: #0084ff;
+            color: $primary-color;
           }
 
           span {
             cursor: pointer;
 
             &:hover {
-              color: #0084ff;
+              color: $primary-color;
             }
           }
         }

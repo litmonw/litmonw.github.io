@@ -49,10 +49,10 @@ export default {
     bottom: 0;
     width: 40px;
     height: 40px;
-    color: #0084ff;
+    color: $primary-color;
     background-color: #fff;
     border-radius: 50%;
-    border: 1px solid #0084ff;
+    border: 1px solid $primary-color;
     box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
     opacity: 0;
     cursor: pointer;
@@ -60,7 +60,7 @@ export default {
 
     &:hover {
       color: #fff;
-      background-color: #0084ff;
+      background-color: $primary-color;
     }
 
     &.is-show {

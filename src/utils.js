@@ -15,7 +15,12 @@ const getClientHeight = () => {
 }
 
 const deployAxios = (obj) => {
-  obj.defaults.baseURL = '/api'
+  if (process.env.NODE_ENV === 'production') {
+    obj.defaults.baseURL = 'http://111.231.208.21/api'
+  } else {
+    obj.defaults.baseURL = '/api'
+  }
+  
   return obj
 }
 

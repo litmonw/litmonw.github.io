@@ -7,14 +7,27 @@
         class="feed-item"
       >
         <div class="feed-card">
-          <img class="feed-cover" :src="item.cover" />
+          <img
+            class="feed-cover"
+            :src="item.cover"
+          >
           <div class="feed-info">
-            <p class="feed-title">{{ item.title }}</p>
-            <p class="feed-field">{{ item.author }} / {{ item.year}} / {{ item.publisher }}</p>
+            <p class="feed-title">
+              {{ item.title }}
+            </p>
+            <p class="feed-field">
+              {{ item.author }} / {{ item.year }} / {{ item.publisher }}
+            </p>
             <div class="feed-mark">
               <div class="mark-title">
                 <div class="mark-star">
-                  <span v-for="number in 5" class="fs-20 material-icons">{{ number <= item.score ? 'star' : 'star_outline' }}</span>
+                  <span
+                    v-for="number in 5"
+                    :key="number.id"
+                    class="fs-20 material-icons"
+                  >
+                    {{ item.score >= number ? 'star' : 'star_outline' }}
+                  </span>
                 </div>
                 <span class="mark-date">{{ item.date }}</span>
               </div>
@@ -28,6 +41,7 @@
     </ul>
     <div class="read-footer">
       <app-pagination
+        v-if="pageTotal > limit"
         v-model="currentPage"
         @change-page="changePage"
       />
@@ -37,63 +51,28 @@
 
 <script>
 export default {
-  name: 'page-read',
+  name: 'PageRead',
   data() {
     return {
       books: [
-        {
-          title: '如何阅读一本书',
-          author: '[美] 莫提默·J. 艾德勒 / 查尔斯·范多伦',
-          year: '2004',
-          publisher: '商务印书馆',
-          cover: require('../assets/img/s1670978.jpg'),
-          score: 3,
-          date: '2018-06-05',
-          remark: '莫提默·J. 艾德勒（1902－2001）以学者、教育家、编辑人等多重面貌享有盛名。除了写作《如何阅读一本书》外，以主编《西方世界的经典人并担任1974年第十五版《大英百科全书》的编辑相异而闻名于世。'
-        },
-        {
-          title: '如何阅读一本书',
-          author: '[美] 莫提默·J. 艾德勒 / 查尔斯·范多伦',
-          year: '2004',
-          publisher: '商务印书馆',
-          cover: require('../assets/img/s1670978.jpg'),
-          score: 4,
-          date: '2018-06-05',
-          remark: '莫提默·J. 艾德勒（1902－2001）以学者、教育家、编辑人等多重面貌享有盛名。除了写作《如何阅读一本书》外，以主编《西方世界的经典人并担任1974年第十五版《大英百科全书》的编辑相异而闻名于世。'
-        },
-        {
-          title: '如何阅读一本书',
-          author: '[美] 莫提默·J. 艾德勒 / 查尔斯·范多伦',
-          year: '2004',
-          publisher: '商务印书馆',
-          cover: require('../assets/img/s1670978.jpg'),
-          score: 4,
-          date: '2018-06-05',
-          remark: '莫提默·J. 艾德勒（1902－2001）以学者、教育家、编辑人等多重面貌享有盛名。除了写作《如何阅读一本书》外，以主编《西方世界的经典人并担任1974年第十五版《大英百科全书》的编辑相异而闻名于世。'
-        },
-        {
-          title: '如何阅读一本书',
-          author: '[美] 莫提默·J. 艾德勒 / 查尔斯·范多伦',
-          year: '2004',
-          publisher: '商务印书馆',
-          cover: require('../assets/img/s1670978.jpg'),
-          score: 4,
-          date: '2018-06-05',
-          remark: '莫提默·J. 艾德勒（1902－2001）以学者、教育家、编辑人等多重面貌享有盛名。除了写作《如何阅读一本书》外，以主编《西方世界的经典人并担任1974年第十五版《大英百科全书》的编辑相异而闻名于世。'
-        },
-        {
-          title: '如何阅读一本书',
-          author: '[美] 莫提默·J. 艾德勒 / 查尔斯·范多伦',
-          year: '2004',
-          publisher: '商务印书馆',
-          cover: require('../assets/img/s1670978.jpg'),
-          score: 4,
-          date: '2018-06-05',
-          remark: '莫提默·J. 艾德勒（1902－2001）以学者、教育家、编辑人等多重面貌享有盛名。除了写作《如何阅读一本书》外，以主编《西方世界的经典人并担任1974年第十五版《大英百科全书》的编辑相异而闻名于世。'
-        }
+        ['title', 'author', 'year', 'publisher', 'cover', 'score', 'date', 'remark']
       ],
-      currentPage: 1
+      limit: 10,
+      currentPage: 1,
+      pageTotal: 0
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    const page = to.query.page
+    this.currentPage = page
+    this.getList(page)
+    next()
+  },
+  mounted() {
+    const page = this.$route.query.page || 1
+    this.currentPage = parseInt(page)
+
+    this.getList(page)
   },
   methods: {
     changePage(page) {
@@ -102,6 +81,18 @@ export default {
         query: {
           page
         }
+      })
+    },
+    getList(page) {
+      this.$http.get('/book/list', {
+        params: {
+          page,
+          limit: this.limit
+        }
+      }).then(res => {
+        const books = res.data.data.list
+        this.books = books
+        this.pageTotal = res.data.data.total
       })
     }
   }
@@ -191,7 +182,14 @@ export default {
       }
 
       .mark-content {
+        display: -webkit-box;
         margin-top: 8px;
+        height: 64px;
+        overflow: hidden;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        word-break: break-word;
+        text-overflow: ellipsis;
       }
     }
   }
@@ -205,5 +203,95 @@ export default {
 
 .fs-20 {
   font-size: 20px;
+}
+
+.book-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 600px;
+}
+
+@keyframes initAnimation {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-30deg);
+  }
+}
+
+.book {
+  width: 200px;
+  height: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(-30deg);
+  transition: 1s ease;
+  animation: 1s ease 0s 1 initAnimation;
+}
+
+.book:hover {
+  transform: rotateY(0deg);
+}
+
+.book > :first-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: red;
+  width: 200px;
+  height: 300px;
+  transform: translateZ(25px);
+  background-color: #01060f;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 5px 5px 20px #666;
+}
+
+.book::before {
+  position: absolute;
+  content: ' ';
+  background-color: blue;
+  left: 0;
+  top: 3px;
+  width: 48px;
+  height: 294px;
+  transform: translateX(172px) rotateY(90deg);
+  background: linear-gradient(90deg, 
+    #fff 0%,
+    #f9f9f9 5%,
+    #fff 10%,
+    #f9f9f9 15%,
+    #fff 20%,
+    #f9f9f9 25%,
+    #fff 30%,
+    #f9f9f9 35%,
+    #fff 40%,
+    #f9f9f9 45%,
+    #fff 50%,
+    #f9f9f9 55%,
+    #fff 60%,
+    #f9f9f9 65%,
+    #fff 70%,
+    #f9f9f9 75%,
+    #fff 80%,
+    #f9f9f9 85%,
+    #fff 90%,
+    #f9f9f9 95%,
+    #fff 100%
+    );
+}
+
+.book::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: ' ';
+  width: 200px;
+  height: 300px;
+  transform: translateZ(-25px);
+  background-color: #01060f;
+  border-radius: 0 2px 2px 0;
+  box-shadow: -10px 0 50px 10px #666;
 }
 </style>

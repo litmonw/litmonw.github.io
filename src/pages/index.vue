@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <h1 class="logo">
-      litmonw
+      牧屋
     </h1>
     <div class="banner-wrap">
       <banner-card />
@@ -179,8 +179,8 @@ export default {
         cursor: pointer;
 
         &:hover {
-          background-color: #0084ff;
-          border: 1px solid #0084ff;
+          background-color: $primary-color;
+          border: 1px solid $primary-color;
           box-shadow: 0 8px 12px 0 rgba(0, 132, 255, .2);
 
           .section-icon , .section-name, .section-desc {
@@ -191,7 +191,7 @@ export default {
 
       .section-icon {
         font-size: 32px;
-        color: #0084ff;
+        color: $primary-color;
       }
 
       .section-info {

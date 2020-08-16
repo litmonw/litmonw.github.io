@@ -57,7 +57,7 @@ export default {
     return {
       bannerList: [
         {
-          title: '19年下半年已定档的19部恐怖片，你一定不想错过',
+          title: '用 Vue slot 插槽实现一个简单的 list 组件',
           cover: require('../assets/img/banner2.jpg'),
           date: '2020-07-08',
           path: '/post',
@@ -151,7 +151,7 @@ export default {
       cursor: pointer;
 
       &:hover {
-        color: #0084ff;
+        color: $primary-color;
       }
 
       .card-day {
@@ -184,7 +184,7 @@ export default {
       cursor: pointer;
 
         &:hover {
-          color: #0084ff;
+          color: $primary-color;
         }
 
         @media screen and (max-width: $screen-md-min) {
@@ -204,13 +204,13 @@ export default {
       .card-section-highlight {
         cursor: pointer;
         &:hover {
-          color: #0084ff;
+          color: $primary-color;
         }
       }
     }
 
     .action-btn {
-      background-color: #0084ff;
+      background-color: $primary-color;
       border: none;
       color: #fff;
       margin-top: 28px;

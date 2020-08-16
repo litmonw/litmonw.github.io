@@ -1,6 +1,9 @@
 <template>
   <footer>
-    <ul class="more" @click="showMsg">
+    <ul
+      class="more"
+      @click="showMsg"
+    >
       <li><span>关于</span></li>
       <li><span>建议反馈</span></li>
       <li><span>合作</span></li>
@@ -12,14 +15,14 @@
     </ul>
     <ul class="copyright">
       <li><span>&copy;2020 牧野长空</span></li>
-      <li><span>Powered by AliCloud</span></li>
+      <!-- <li><span>Powered by AliCloud</span></li> -->
     </ul>
   </footer>
 </template>
 
 <script>
 export default {
-  name: 'micro-footer',
+  name: 'MicroFooter',
   methods: {
     showMsg() {
       this.$swal('这里还没有准备好哦')

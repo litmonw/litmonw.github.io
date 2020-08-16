@@ -155,7 +155,7 @@ export default {
       font-size: 14px;
 
       .card-content-tips {
-        color: #0084ff
+        color: $primary-color
       }
     }
   }

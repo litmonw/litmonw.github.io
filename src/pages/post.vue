@@ -12,7 +12,10 @@
             :feed="item"
             @click.native="openDetailPage(item)"
           />
-          <div class="feeds-footer">
+          <div
+            v-if="pageTotal > limit"
+            class="feeds-footer"
+          >
             <app-pagination
               v-model="currentPage"
               :total="pageTotal"
@@ -80,6 +83,7 @@ export default {
     return {
       feeds: [],
       currentPage: 1,
+      limit: 10,
       scrollTop: 0,
       pageWidth: 0,
       removeScrollPageWidth: 0,
@@ -150,7 +154,8 @@ export default {
     getList(page) {
       this.$http.get('/post/list', {
         params: {
-          page: page
+          page,
+          limit: this.limit
         }
       }).then(res => {
         const feeds = res.data.data.list
@@ -322,10 +327,10 @@ export default {
 
           &:hover {
             color: #fff;
-            background-color: #0084ff;
+            background-color: $primary-color;
 
             em {
-              color: #0084ff;
+              color: $primary-color;
               background-color: #fff;
             }
           }

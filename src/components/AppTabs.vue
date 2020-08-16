@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'app-tabs',
+  name: 'AppTabs',
   props: {
     currentTabId: {
       default: ''
@@ -43,8 +43,8 @@ export default {
   },
   watch: {
     $route(to, from) {
-    const routeName = this.$route.name
-    if (this.tabs.map(item => item.id).includes(routeName)) {
+      const routeName = this.$route.name
+      if (this.tabs.map(item => item.id).includes(routeName)) {
       // this.currentTabId = routeName
         this.$emit('update: currentTabId', routeName)
       }
@@ -106,7 +106,7 @@ export default {
     cursor: pointer;
 
     &.active {
-      color: #0084ff;
+      color: $primary-color;
     }
 }
 </style>
