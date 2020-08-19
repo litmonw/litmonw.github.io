@@ -58,29 +58,32 @@
               </p>
             </div>
           </div>
-          <ul class="more-list">
-            <li @click="openAboutPage">
+          <ul
+            class="more-list"
+            @click="openTargetPage"
+          >
+            <li>
               <router-link
                 class="item-link"
-                to="about"
+                :to="{ name: 'about'}"
               >
                 <span class="material-icons">people_outline</span>
                 <span class="name">关于</span>
               </router-link>
             </li>
-            <li @click="openLinkPage">
+            <li>
               <router-link
                 class="item-link"
-                to="link"
+                to="/link"
               >
                 <span class="material-icons">info_outline</span>
                 <span class="name">社区</span>
               </router-link>
             </li>
-            <li @click="openFriendsPage">
+            <li>
               <router-link
                 class="item-link"
-                to="friends"
+                to="/friends"
               >
                 <span class="material-icons">link</span>
                 <span class="name">朋友</span>
@@ -200,14 +203,8 @@ export default {
     closeSearchPanel() {
       this.searchPanelStatus = false
     },
-    openAboutPage() {
-
-    },
-    openLinkPage() {
-
-    },
-    openFriendsPage() {
-
+    openTargetPage() {
+      this.sidebarStatus = false
     },
     searchKeyword() {
       // TODO: 跳转到搜索页
@@ -225,7 +222,8 @@ export default {
 
 .layout-header {
   position: fixed;
-  z-index: 1;
+  // 为什么 1 不行，改为了 2 就好使了呢？
+  z-index: 2;
   top: 0;
   width: 100%;
   background-color: #fff;
@@ -395,17 +393,17 @@ export default {
 
     li {
 
+      a {
+        color: #2c3e50;
+        text-decoration: none;
+      }
+      
       .item-link {
         display: flex;
         align-items: center;
         padding-left: 16px;
         text-decoration: none;
         line-height: 40px;
-
-        &.router-link-active {
-          color: #2c3e50;
-          text-decoration: none;
-        }     
       }
     }
 

@@ -6,6 +6,7 @@
           v-for="item in list"
           :key="item.id"
           class="list-item"
+          @click="openDetailPage(item.id)"
         >
           <div class="card">
             <div class="card-cover">
@@ -80,6 +81,22 @@ export default {
         this.pageTotal = res.data.data.total
       })
     },
+    openDetailPage(id) {
+      this.$router.push({
+        name: 'workDetail',
+        params: {
+          id
+        }
+      })
+      // const routeUrl = this.$router.resolve({
+      //   name: 'workDetail',
+      //   params: {
+      //     id
+      //   }
+      // })
+
+      // window.open(routeUrl.href, '_blank')
+    }
   }
 }
 </script>

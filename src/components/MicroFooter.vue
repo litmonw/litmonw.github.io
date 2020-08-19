@@ -15,7 +15,7 @@
     </ul>
     <ul class="copyright">
       <li><span>&copy;2020 牧野长空</span></li>
-      <!-- <li><span>Powered by AliCloud</span></li> -->
+      <li><span>Powered by Tencent Cloud</span></li>
     </ul>
   </footer>
 </template>

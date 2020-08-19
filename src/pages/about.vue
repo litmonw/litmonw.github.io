@@ -47,6 +47,7 @@ export default {
 
 .breadcrumb {
   margin-bottom: 16px;
+  margin-left: 16px;
 }
 
 .article {

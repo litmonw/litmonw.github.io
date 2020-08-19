@@ -1,6 +1,9 @@
 <template>
   <footer>
-    <ul class="more" @click="showMsg">
+    <ul
+      class="more"
+      @click="showMsg"
+    >
       <li><span>关于</span></li>
       <li><span>建议反馈</span></li>
       <li><span>合作</span></li>
@@ -10,14 +13,14 @@
     <ul class="info">
       <li><span>&copy;2020 牧野长空</span></li>
       <li><span>蜀ICP备15003202号-2</span></li>
-      <li><span>Powered by AliCloud</span></li>
+      <li><span>Powered by Tencent Cloud</span></li>
     </ul>
   </footer>
 </template>
 
 <script>
 export default {
-  name: 'app-footer',
+  name: 'AppFooter',
   methods: {
     showMsg() {
       this.$swal('这里还没有准备好哦')
