@@ -1,7 +1,10 @@
 <template>
   <div class="home-container">
     <h1 class="logo">
-      牧屋
+      <img
+        src="../assets/img/logo.svg"
+        height="40px"
+      >
     </h1>
     <div class="banner-wrap">
       <banner-card />

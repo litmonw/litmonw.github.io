@@ -13,7 +13,10 @@
             class="header-logo"
             to="/"
           >
-            Litmonw
+            <img
+              src="../assets/img/logo.svg"
+              height="30px"
+            >
           </router-link>
         </section>
         <section class="header-right">
@@ -254,6 +257,7 @@ export default {
       font-size: 20px;
       letter-spacing: 1.2px;
       text-decoration: none;
+      font-size: 0;
       cursor: pointer;
 
       &.router-link-active {
