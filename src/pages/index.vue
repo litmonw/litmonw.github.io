@@ -173,25 +173,6 @@ export default {
         width: 33.3%;
       }
 
-      .section-inner {
-        display: flex;
-        height: 100%;
-        padding: 36px 20px 0;
-        border: 1px solid #f3f3f3;
-        border-radius: 3px;
-        cursor: pointer;
-
-        &:hover {
-          background-color: $primary-color;
-          border: 1px solid $primary-color;
-          box-shadow: 0 8px 12px 0 rgba(0, 132, 255, .2);
-
-          .section-icon , .section-name, .section-desc {
-            color: #fff;
-          }
-        }
-      }
-
       .section-icon {
         font-size: 32px;
         color: $primary-color;
@@ -215,6 +196,27 @@ export default {
           color: #888;
         }
       }
+
+      .section-inner {
+        display: flex;
+        height: 100%;
+        padding: 36px 20px 0;
+        border: 1px solid #f3f3f3;
+        border-radius: 3px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $primary-color;
+          border: 1px solid $primary-color;
+          box-shadow: 0 8px 12px 0 rgba(0, 132, 255, 0.2);
+
+          .section-icon,
+          .section-name,
+          .section-desc {
+            color: #fff;
+          }
+        }
+      }
     }
   }
 }
@@ -231,11 +233,11 @@ footer {
   font-size: 14px;
   background-color: #f5f5f5;
   color: #bbb;
-  border-top: 1px solid hsla(0,0%,100%, .1);
+  border-top: 1px solid hsla(0, 0%, 100%, 0.1);
 
-  @media screen and (min-width: $screen-sm-min) {
-    font-size: 12px;
-  }
+  // @media screen and (min-width: $screen-sm-min) {
+  //   font-size: 12px;
+  // }
 
   .footer-left {
     span {

@@ -1,24 +1,26 @@
 *,
-*:before,
-*:after {
-   box-sizing: border-box;
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 p {
-   margin: 0;
+  margin: 0;
 }
 
 .blank-btn {
-   background-color: transparent;
-   border: none;
+  background-color: transparent;
+  border: none;
 }
 
 /* === 主题 === */
 $primary-color: #0084ff;
+
 /* === 媒体查询 === */
 
-/* 超小屏幕 */
-/* 没有任何媒体查询相关的代码，这是默认的 */
+/* 超小屏幕
+ * 没有任何媒体查询相关的代码，这是默认的
+ */
 
 /* 小屏幕（平板，大于等于 768px） */
 $screen-sm-min: 768px;

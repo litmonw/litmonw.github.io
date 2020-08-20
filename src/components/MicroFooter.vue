@@ -49,7 +49,7 @@ footer {
         cursor: pointer;
       }
 
-      &:after {
+      &::after {
         content: '·';
         margin: 0 4px;
         color: #c6cfda;

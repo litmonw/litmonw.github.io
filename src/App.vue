@@ -54,7 +54,7 @@ export default {
     }
   },
   methods: {
-    changeTab(name) {
+    changeTab() {
       this.currentTabId = ''
     }
   }
@@ -81,7 +81,7 @@ body {
   overflow: hidden;
 
   @media screen and (min-width: $screen-sm-min) {
-    margin-top: 56px;  
+    margin-top: 56px;
   }
 }
 </style>

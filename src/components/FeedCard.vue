@@ -116,10 +116,10 @@ export default {
   word-break: break-word;
 
   &:hover {
-    background-color: rgba(0,0,0,.01);
+    background-color: rgba(0, 0, 0, 0.01);
   }
 
-  &:before {
+  &::before {
     position: absolute;
     content: "";
     bottom: 0;
@@ -155,7 +155,7 @@ export default {
       font-size: 14px;
 
       .card-content-tips {
-        color: $primary-color
+        color: $primary-color;
       }
     }
   }

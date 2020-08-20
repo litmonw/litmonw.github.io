@@ -117,9 +117,9 @@ export default {
   .breadcrumb {
     margin-top: 16px;
 
-      .breadcrumb-item-name {
-        color: #fff;
-      }
+    .breadcrumb-item-name {
+      color: #fff;
+    }
   }
 }
 
@@ -131,14 +131,14 @@ export default {
   background-color: cover;
   overflow: hidden;
 
-  &:before {
+  &::before {
     content: "";
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     background: #2b2b2b;
-    opacity: .6;
+    opacity: 0.6;
     position: absolute;
     z-index: -1;
   }
@@ -206,11 +206,11 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-right: 0px;
+      margin-right: 0;
       padding: 6px 12px;
       width: 86px;
       height: 46px;
-      color: rgba($color: #fff, $alpha: .6);
+      color: rgba($color: #fff, $alpha: 0.6);
       border-radius: 4px 4px 0 0;
       cursor: pointer;
 

@@ -19,6 +19,7 @@ export default {
   name: 'AppTabs',
   props: {
     currentTabId: {
+      type: String,
       default: ''
     }
   },
@@ -42,7 +43,7 @@ export default {
     }
   },
   watch: {
-    $route(to, from) {
+    $route() {
       const routeName = this.$route.name
       if (this.tabs.map(item => item.id).includes(routeName)) {
       // this.currentTabId = routeName
@@ -74,7 +75,7 @@ export default {
     display: none;
   }
 
-  &:after {
+  &::after {
     position: absolute;
     content: "";
     bottom: 0;
@@ -98,15 +99,15 @@ export default {
 }
 
 .tab-bar-item {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    height: 100%;
-    cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 100%;
+  cursor: pointer;
 
-    &.active {
-      color: $primary-color;
-    }
+  &.active {
+    color: $primary-color;
+  }
 }
 </style>

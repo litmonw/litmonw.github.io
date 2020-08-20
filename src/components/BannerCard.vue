@@ -120,7 +120,7 @@ export default {
   background-color: #fff;
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 5px 20px 0 rgba(43, 41, 41, .15);
+  box-shadow: 0 5px 20px 0 rgba(43, 41, 41, 0.15);
 
   @media screen and (min-width: $screen-sm-min) {
     border-radius: 12px;
@@ -143,9 +143,8 @@ export default {
       padding-left: 32px;
     }
 
-
     .card-date {
-      display: flex; 
+      display: flex;
       flex-direction: column;
       font-weight: 500;
       cursor: pointer;
@@ -183,15 +182,15 @@ export default {
       -webkit-box-orient: vertical;
       cursor: pointer;
 
-        &:hover {
-          color: $primary-color;
-        }
+      &:hover {
+        color: $primary-color;
+      }
 
-        @media screen and (max-width: $screen-md-min) {
-          margin-bottom: 24px;
-          height: 72px;
-          font-size: 32px;
-        }
+      @media screen and (max-width: $screen-md-min) {
+        margin-bottom: 24px;
+        height: 72px;
+        font-size: 32px;
+      }
     }
 
     .card-section {
@@ -203,6 +202,7 @@ export default {
 
       .card-section-highlight {
         cursor: pointer;
+
         &:hover {
           color: $primary-color;
         }
@@ -240,7 +240,7 @@ export default {
     height: 0;
 
     @media screen and (max-width: $screen-sm-min) {
-      &:before {
+      &::before {
         content: '';
         position: absolute;
         z-index: 1;
@@ -248,10 +248,10 @@ export default {
         left: 0;
         width: 100%;
         height: 48px;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, .7) 10%, rgba(0, 0, 0, 0));
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
       }
 
-      &:after {
+      &::after {
         content: '';
         position: absolute;
         z-index: 1;
@@ -260,11 +260,11 @@ export default {
         width: 100%;
         height: 68px;
         background-image: linear-gradient(to top, rgba(0, 0, 0, 70%) 10%, rgba(0, 0, 0, 0%));
-      } 
+      }
     }
 
     @media screen and (max-width: 480px) {
-      padding-bottom: 100%;  
+      padding-bottom: 100%;
     }
 
     @media screen and (max-width: $screen-sm-min) {
@@ -311,7 +311,7 @@ export default {
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
         }
-      } 
+      }
     }
   }
 }

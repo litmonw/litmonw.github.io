@@ -21,7 +21,7 @@ export default {
     .breadcrumb-item-name {
       font-weight: 700;
       cursor: text;
-      
+
       &:hover {
         color: #515a6e;
       }

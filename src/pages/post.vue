@@ -188,12 +188,15 @@ export default {
       })
     },
     openDetailPage(item) {
-      this.$router.push({
+      const routeUrl = this.$router.resolve({
         name: 'postDetail',
         params: {
           id: item.id
         }
       })
+
+      window.open(routeUrl.href, '_blank')
+
     },
     handleScroll() {
       this.scrollTop = this.$utils.getScrollTop()
@@ -211,7 +214,7 @@ export default {
   background-color: #f5f5f5;
   min-height: calc(100vh - 101px);
   overflow: hidden;
-  
+
   & > .post {
     margin: 16px auto 0;
     max-width: 992px;
@@ -249,10 +252,11 @@ export default {
       display: block;
     }
 
-    .about, .popular-posts {
+    .about,
+    .popular-posts {
       background-color: #fff;
       margin-bottom: 16px;
-      box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
       .section-title {
         padding: 0 16px;
@@ -282,7 +286,7 @@ export default {
           cursor: pointer;
 
           &:hover {
-            background-color: hsla(0,0%,84.7%,.1);
+            background-color: hsla(0, 0%, 84.7%, 0.1);
           }
 
           .post-title {
@@ -325,16 +329,6 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
 
-          &:hover {
-            color: #fff;
-            background-color: $primary-color;
-
-            em {
-              color: $primary-color;
-              background-color: #fff;
-            }
-          }
-
           em {
             display: inline-block;
             width: 18px;
@@ -346,6 +340,16 @@ export default {
             border-radius: 50%;
             color: #fff;
             text-align: center;
+          }
+
+          &:hover {
+            color: #fff;
+            background-color: $primary-color;
+
+            em {
+              color: $primary-color;
+              background-color: #fff;
+            }
           }
         }
       }

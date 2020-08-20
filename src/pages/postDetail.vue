@@ -300,10 +300,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.breadcrumb {
-  margin-left: 16px;
-}
-
 .about-container {
   background-color: #f5f5f5;
   min-height: calc(100vh - 125px);
@@ -316,6 +312,7 @@ export default {
 }
 
 .breadcrumb {
+  margin-left: 16px;
   margin-bottom: 16px;
 }
 
@@ -335,8 +332,8 @@ export default {
     }
 
     .article-title {
-        margin: 20px 0;
-        font-size: 30px;
+      margin: 20px 0;
+      font-size: 30px;
     }
 
     .article-content {

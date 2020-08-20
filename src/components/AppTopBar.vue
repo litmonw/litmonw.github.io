@@ -94,7 +94,7 @@
             </li>
           </ul>
           <!-- 备案号与版权声明 -->
-          <micro-footer style="padding: 0 16px" />
+          <micro-footer style="padding: 0 16px;" />
         </div>
       </div>
       <div
@@ -223,6 +223,37 @@ export default {
   }
 }
 
+/* search */
+.search {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  background-color: #fff;
+
+  button {
+    padding: 12px;
+  }
+
+  input {
+    flex-grow: 1;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid #000;
+    outline: none;
+    appearance: none;
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+  }
+}
+
 .layout-header {
   position: fixed;
   // 为什么 1 不行，改为了 2 就好使了呢？
@@ -230,7 +261,7 @@ export default {
   top: 0;
   width: 100%;
   background-color: #fff;
-  border-bottom: 1px solid rgba(26,26,26,.06);
+  border-bottom: 1px solid rgba(26, 26, 26, 0.06);
   box-shadow: 0 1px 3px 0 rgba(23, 81, 153, 0.05);
 
   .layout-header-inner {
@@ -254,7 +285,6 @@ export default {
     .header-logo {
       padding-left: 20px;
       font-weight: 500;
-      font-size: 20px;
       letter-spacing: 1.2px;
       text-decoration: none;
       font-size: 0;
@@ -304,116 +334,82 @@ export default {
     }
   }
 }
-  .mask {
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, .7);
+
+.mask {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup-inner {
+  position: fixed;
+  z-index: 2;
+  width: 300px;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transform: translateX(-100%);
+  background-color: #fff;
+  transition: transform 0.3s;
+
+  &.active {
+    transform: translateX(0);
+  }
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  padding: 16px 16px 8px 16px;
+
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
   }
 
-  .popup-inner {
-    position: fixed;
-    z-index: 2;
-    width: 300px;
-    top: 0;
-    left: 0;
-    height: 100%;
-    transform: translateX(-100%);
-    background-color: #fff;
-    transition: transform 0.3s;
+  .profile-info {
+    margin-left: 10px;
 
-    &.active {
-      transform: translateX(0);
+    .profile-name {
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .profile-desc {
+      font-size: 16px;
+      line-height: 1.5;
     }
   }
+}
 
-  /* search */
-  .search {
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    width: 100%;
-    height: 56px;
-    display: flex;
-    z-index: 2;
-    top: 0;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 4px;
-    background-color: #fff;
+.more-list {
+  list-style-type: none;
+  padding-left: 0;
 
-    button {
-      padding: 12px;
+  li {
+    a {
+      color: #2c3e50;
+      text-decoration: none;
     }
 
-    input {
-      flex-grow: 1;
-      padding: 5px;
-      border: none;
-      border-bottom: 1px solid #000;
-      outline: none;
-      appearance: none;
-
-      &::-webkit-search-cancel-button {
-        display: none;
-      }
-    }
-  }
-
-  .profile {
-    display: flex;
-    align-items: center;
-    padding: 16px 16px 8px 16px;
-
-    .profile-avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 5px;
-    }
-
-    .profile-info {
-      margin-left: 10px;
-
-      .profile-name {
-        font-size: 20px;
-        line-height: 1.5;
-        font-weight: 500;
-      }
-
-      .profile-desc {
-        font-size: 16px;
-        line-height: 1.5;
-      }
+    .item-link {
+      display: flex;
+      align-items: center;
+      padding-left: 16px;
+      text-decoration: none;
+      line-height: 40px;
     }
   }
 
-  .more-list {
-    list-style-type: none;
-    padding-left: 0;
-
-    li {
-
-      a {
-        color: #2c3e50;
-        text-decoration: none;
-      }
-      
-      .item-link {
-        display: flex;
-        align-items: center;
-        padding-left: 16px;
-        text-decoration: none;
-        line-height: 40px;
-      }
-    }
-
-    .name {
-      margin-left: 24px;
-      font-size: 14px;
-    }
+  .name {
+    margin-left: 24px;
+    font-size: 14px;
   }
+}
 </style>

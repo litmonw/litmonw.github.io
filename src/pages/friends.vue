@@ -100,7 +100,7 @@ export default {
   }
 
   @media screen and (min-width: $screen-md-min) {
-    width: 25%;    
+    width: 25%;
   }
 }
 
@@ -114,7 +114,7 @@ export default {
   cursor: pointer;
 
   &:hover {
-    background-color: hsla(0,0%,84.7%,.1);
+    background-color: hsla(0, 0%, 84.7%, 0.1);
   }
 
   .friend-profile {

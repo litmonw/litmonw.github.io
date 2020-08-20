@@ -71,17 +71,17 @@ ul {
   padding-left: 0;
 
   li {
-      a {
-        text-decoration: none;
-        color: #2c3e50;
-        display: block;
-        padding: 4px 0 4px 21px;
-        position: relative;
-        cursor: pointer;
-        font-size: 14px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    a {
+      text-decoration: none;
+      color: #2c3e50;
+      display: block;
+      padding: 4px 0 4px 21px;
+      position: relative;
+      cursor: pointer;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       &:hover {
         background-color: #ebedef;

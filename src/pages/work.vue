@@ -82,20 +82,14 @@ export default {
       })
     },
     openDetailPage(id) {
-      this.$router.push({
+      const routeUrl = this.$router.resolve({
         name: 'workDetail',
         params: {
           id
         }
       })
-      // const routeUrl = this.$router.resolve({
-      //   name: 'workDetail',
-      //   params: {
-      //     id
-      //   }
-      // })
 
-      // window.open(routeUrl.href, '_blank')
+      window.open(routeUrl.href, '_blank')
     }
   }
 }
@@ -140,22 +134,9 @@ export default {
       font-size: 0;
       background-color: #fff;
       cursor: pointer;
-      transition: transofrm .5s;
+      transition: transofrm 0.5s;
       border-radius: 3px;
       overflow: hidden;
-
-      &:hover {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .1);
-
-        .card-cover::before {
-          opacity: 1;
-        }
-
-        .card-inner .card-info {
-          top: -55px;
-          transition: top .3s ease-out;
-        }
-      }
 
       .card-cover {
         position: relative;
@@ -168,9 +149,9 @@ export default {
           top: 0;
           width: 100%;
           height: 100%;
-          background: rgba(0,0,0,.7);
+          background: rgba(0, 0, 0, 0.7);
           opacity: 0;
-          transition: opacity .2s;
+          transition: opacity 0.2s;
         }
 
         img {
@@ -192,7 +173,7 @@ export default {
           height: 100%;
           overflow: hidden;
           background-color: #fff;
-          transition: top .3s ease-out;
+          transition: top 0.3s ease-out;
 
           .card-title {
             margin-bottom: 8px;
@@ -237,13 +218,26 @@ export default {
           }
         }
       }
+
+      &:hover {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+
+        .card-cover::before {
+          opacity: 1;
+        }
+
+        .card-inner .card-info {
+          top: -55px;
+          transition: top 0.3s ease-out;
+        }
+      }
     }
   }
 }
 
 .container-footer {
-    display: flex;
-    justify-content: center;
-    padding-top: 24px;
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
 }
 </style>

@@ -1,14 +1,15 @@
 var path = require('path')
-const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/', // build 环境不能使用 publicPath
   },
   resolve: {
     alias: {
@@ -20,17 +21,55 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        use: [
+          {
+            loader: 'vue-loader',
+            options: {
+              compileOptions: {
+                preserveWhitespace: false,
+              },
+            },
+          },
+        ],
+      },
+      // 它会应用到普通的 `.js` 文件
+      // 以及 `.vue` 文件中的 `<script>` 块
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['@babel/preset-env'],
+        },
+      },
+      {
+        test: /\.css$/,
+        use: [
+          // {
+          //   loader: 'style-loader'
+          // },
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            // options: {
+            //   modules: true,
+            // },
+          },
+        ],
+      },
+      // `.scss` 文件和 `*.vue` 文件中的
+      // `<style lang="scss">` 块都应用它
+      {
         test: /\.scss$/,
         use: [
           {
             loader: 'vue-style-loader',
           },
-          // { loader: 'extract-loader' },
           { loader: 'css-loader' },
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [autoprefixer()],
+              plugins: () => [require('autoprefixer')()],
             },
           },
           {
@@ -55,30 +94,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,
-        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['@babel/preset-env'],
-        },
-      },
-      {
-        test: /\.vue$/,
-        use: [
-          {
-            loader: 'vue-loader',
-            options: {
-              compileOptions: {
-                preserveWhitespace: false,
-              },
-            },
-          },
-        ],
-      },
-      {
         test: /\.(png|jpg|jpe?g|gif|ttf|eot|svg|woff|woff2|otf)$/i,
         use: [
           {
@@ -97,9 +112,20 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
     new HtmlWebpackPlugin({
+      title: '测试',
       template: './index.html',
       filename: 'index.html',
+      favicon: './src/assets/img/favicon.ico',
+      inject: true,
+    }),
+    new StylelintPlugin({
+      files: ['**/*.{vue,htm,html,css,sss,less,scss,sass}'],
+      fix: true
     }),
   ],
 }

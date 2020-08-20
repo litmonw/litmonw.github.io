@@ -31,7 +31,6 @@ export default {
 
 <style lang="scss" scoped>
 footer {
-  // margin: 16px 0 8px;
   margin-bottom: 8px;
   text-align: center;
   display: none;
@@ -57,7 +56,7 @@ footer {
         cursor: pointer;
       }
 
-      &:after {
+      &::after {
         content: '·';
         margin: 0 4px;
         color: #c6cfda;

@@ -50,7 +50,7 @@ export default {
     text-align: center;
 
     @media screen and (max-width: $screen-sm-min) {
-      &:not(:last-child):after {
+      &:not(:last-child)::after {
         position: absolute;
         content: "";
         bottom: 0;
@@ -59,13 +59,13 @@ export default {
         width: 100%;
         height: 1px;
         background-color: #eee;
-      } 
+      }
     }
 
     @media screen and (min-width: $screen-sm-min) {
       width: 50%;
 
-      &:not(:last-child):after {
+      &:not(:last-child)::after {
         position: absolute;
         content: "";
         top: 50%;
