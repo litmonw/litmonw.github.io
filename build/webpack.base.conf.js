@@ -37,10 +37,8 @@ module.exports = {
       // 以及 `.vue` 文件中的 `<script>` 块
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
-          presets: ['@babel/preset-env'],
-        },
       },
       {
         test: /\.css$/,
@@ -125,7 +123,7 @@ module.exports = {
     }),
     new StylelintPlugin({
       files: ['**/*.{vue,htm,html,css,sss,less,scss,sass}'],
-      fix: true
+      fix: true,
     }),
   ],
 }

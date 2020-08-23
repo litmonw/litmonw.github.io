@@ -196,7 +196,6 @@ export default {
       })
 
       window.open(routeUrl.href, '_blank')
-
     },
     handleScroll() {
       this.scrollTop = this.$utils.getScrollTop()
