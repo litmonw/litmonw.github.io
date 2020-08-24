@@ -126,7 +126,7 @@ export default {
 .banner {
   position: relative;
   z-index: 1;
-  background: url('../assets/img/work-banner.jpg');
+  background: url('~@assets/img/work-banner.jpg');
   background-attachment: fixed;
   background-color: cover;
   overflow: hidden;

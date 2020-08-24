@@ -2,7 +2,7 @@
   <div class="home-container">
     <h1 class="logo">
       <img
-        src="../assets/img/logo.svg"
+        src="@assets/img/logo.svg"
         height="40px"
       >
     </h1>

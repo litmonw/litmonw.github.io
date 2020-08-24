@@ -14,7 +14,7 @@
             to="/"
           >
             <img
-              src="../assets/img/logo.svg"
+              src="@assets/img/logo.svg"
               height="30px"
             >
           </router-link>
@@ -49,7 +49,7 @@
           <div class="profile">
             <img
               class="profile-avatar"
-              src="../assets/img/avatar.png"
+              src="@assets/img/avatar.png"
               alt="avatar"
             >
             <div class="profile-info">

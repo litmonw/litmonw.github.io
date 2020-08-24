@@ -9,12 +9,13 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'bundle.js',
-    publicPath: '/', // build 环境不能使用 publicPath
+    // publicPath: '/', // build 环境不能使用 publicPath
   },
   resolve: {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': path.resolve(__dirname, '../src'),
+      '@assets': path.resolve('./src/assets'),
     },
     extensions: ['*', '.js', '.vue'],
   },
@@ -92,20 +93,34 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|jpe?g|gif|ttf|eot|svg|woff|woff2|otf)$/i,
+        test: /\.(jpe?g|png|gif|ttf|eot|woff|woff2|otf)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
             options: {
               esModule: false,
+              limit: 3 * 1024,
             },
           },
         ],
       },
-      // {
-      //   test: /\.(ttf|eot|svg|woff|woff2|otf)$/,
-      //   use: 'url-loader'
-      // }
+      {
+        test: /\.svg$/,
+        loader: 'svg-url-loader',
+        options: {
+          // 小于 10kB(10240字节）的内联文件
+          limit: 10 * 1024,
+          // 移除 url 中的引号
+          // (在大多数情况下它们都不是必要的)
+          noquotes: true,
+        },
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        loader: 'image-webpack-loader',
+        // 在其它 loader 之前应用该 loader，
+        enforce: 'pre',
+      },
     ],
   },
   plugins: [

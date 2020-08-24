@@ -58,7 +58,7 @@ export default {
       bannerList: [
         {
           title: '用 Vue slot 插槽实现一个简单的 list 组件',
-          cover: require('../assets/img/banner2.jpg'),
+          cover: require('@assets/img/banner2.jpg'),
           date: '2020-07-08',
           path: '/post',
           sectionName: '前端/技术',
