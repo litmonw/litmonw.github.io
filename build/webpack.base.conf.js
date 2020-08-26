@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'bundle.js',
-    // publicPath: '/', // build 环境不能使用 publicPath
+    publicPath: '/',
   },
   resolve: {
     alias: {
@@ -138,7 +138,7 @@ module.exports = {
     }),
     new StylelintPlugin({
       files: ['**/*.{vue,htm,html,css,sss,less,scss,sass}'],
-      fix: true,
+      fix: true
     }),
   ],
 }
