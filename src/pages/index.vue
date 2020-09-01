@@ -92,12 +92,12 @@ export default {
         //   icon: 'ri-gamepad-line',
         //   path: 'game'
         // },
-        {
-          name: '作品集',
-          desc: '一勤天下无难事',
-          icon: 'ri-computer-line',
-          path: 'work'
-        }
+        // {
+        //   name: '作品集',
+        //   desc: '一勤天下无难事',
+        //   icon: 'ri-computer-line',
+        //   path: 'work'
+        // }
       ]
     }
   },

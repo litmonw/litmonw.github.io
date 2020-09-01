@@ -35,10 +35,10 @@ export default {
           id: 'read',
           name: '读书'
         },
-        {
-          id: 'work',
-          name: '作品集'
-        }
+        // {
+        //   id: 'work',
+        //   name: '作品集'
+        // }
       ]
     }
   },

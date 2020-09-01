@@ -362,6 +362,9 @@ export default {
         position: fixed;
         top: 73px;
         bottom: 16px;
+      }
+
+      &:hover {
         overflow-y: auto;
       }
     }

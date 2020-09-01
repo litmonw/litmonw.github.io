@@ -15,10 +15,13 @@ const getClientHeight = () => {
 }
 
 const deployAxios = (obj) => {
+  const productionApiBaseURL = 'https://www.litmonw.com/api'
+  const devApiBaseURL = '/api'
+
   if (process.env.NODE_ENV === 'production') {
-    obj.defaults.baseURL = 'http://111.231.208.21/api'
+    obj.defaults.baseURL = productionApiBaseURL
   } else {
-    obj.defaults.baseURL = '/api'
+    obj.defaults.baseURL = devApiBaseURL
   }
   
   return obj
