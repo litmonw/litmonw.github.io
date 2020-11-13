@@ -5,11 +5,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/client-entry.js',
   output: {
+    filename: 'bundle.[hash:8].js',
     path: path.resolve(__dirname, '../dist'),
-    filename: 'bundle.js',
-    publicPath: '/',
+    publicPath: 'http://127.0.0.1:8000/',
   },
   resolve: {
     alias: {

@@ -27,6 +27,9 @@
 import BackTop from '../src/components/BackTop'
 export default {
   name: 'App',
+  metaInfo: {
+    title: 'Jokcy\'s Todo App'
+  },
   components: {
     BackTop
   },

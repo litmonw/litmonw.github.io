@@ -18,22 +18,27 @@ export default {
   },
   computed: {
     isShow() {
-      const clientHeight = this.$utils.getClientHeight()
+      // const clientHeight = this.$utils.getClientHeight()
+      const clientHeight = 0
       if (this.scrollTop > clientHeight) {
         return true
       }
-      return false
+      return false        
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+    if (window) {
+      window.addEventListener('scroll', this.handleScroll)
+    }
   },
   methods: {
     handleScroll() {
       this.scrollTop = this.$utils.getScrollTop()
     },
     backTop() {
-      window.scrollTo(0, 0)
+      if (window) {
+        window.scrollTo(0, 0)
+      }
     }
   }
 }

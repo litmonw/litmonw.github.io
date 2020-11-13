@@ -50,8 +50,15 @@ import '../../node_modules/github-markdown-css/github-markdown.css'
 
 import treeItem from '../components/treeItem'
 
+import {
+  mapState, mapActions
+} from 'vuex'
+
 export default {
   name: 'PostDetail',
+  metaInfo: {
+    title: 'PostDetail.vue'
+  },
   components: {
     treeItem
   },
@@ -75,6 +82,9 @@ export default {
     next()
   },
   computed: {
+    ...mapState([
+      'post',
+    ]),
     overflowHeader() {
       if (this.scrollTop > 89) {
         return true
@@ -85,8 +95,11 @@ export default {
   async mounted() {
     window.addEventListener('scroll',this.handleScroll)
 
-    const res = await this.getPostDetail()
-    const data = res.data.data
+    const res = await this.fetchPost({
+      id: this.id
+    })
+    // this.getPostDetail()
+    const data = res
     this.article = {
       title: data.title,
       content: data.content
@@ -109,6 +122,7 @@ export default {
     this.addheadingNodeId()
   },
   methods: {
+    ...mapActions(['fetchPost']),
     addTocNodeAnchor(node) {
       if (node.children && node.children.length > 0) {
         node.children.forEach((item, index) => {

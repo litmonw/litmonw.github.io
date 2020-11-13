@@ -26,7 +26,7 @@ export default [
     name: 'postDetail',
     path: '/post/:id',
     props: true,
-    component: PostDetail
+    component: PostDetail,
   },
   {
     name: 'read',
@@ -42,14 +42,20 @@ export default [
     name: 'work',
     path: '/work',
     component: Work,
+    meta: {
+      title: '作品'
+    },
   },
   {
-    name: 'workDetail',
     path: '/work/:id',
     props: true,
     component: WorkDetail,
+    meta: {
+      title: '作品'
+    },
     children: [
       {
+        name: 'workDetail',
         path: '/',
         props: true,
         component: WorkDetailDesc

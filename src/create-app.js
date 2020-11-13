@@ -1,18 +1,18 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Vuex from 'vuex'
+import Meta from 'vue-meta'
+
 import App from './App.vue'
 import marked from 'marked'
 import axios from 'axios'
-/* router */
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
 
 import createRouter from './router'
-const router = createRouter()
+import createStore from './store/store'
 
-router.afterEach(() => {
-  window.scrollTo(0, 0)
-})
-/* router End */
+Vue.use(VueRouter)
+Vue.use(Vuex)
+Vue.use(Meta)
 
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
@@ -33,7 +33,7 @@ Vue.prototype.$dayjs = dayjs
 // marked + highlight.js config
 marked.setOptions({
   renderer: new marked.Renderer(),
-  highlight: function(code, language) {
+  highlight: function (code, language) {
     const hljs = require('highlight.js')
     const validLanguage = hljs.getLanguage(language) ? language : 'plaintext'
     return hljs.highlight(validLanguage, code).value
@@ -85,7 +85,15 @@ requireComponent.keys().forEach((fileName) => {
 })
 /* 全局注册 End */
 
-new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount('#app')
+export default () => {
+  const router = createRouter()
+  const store = createStore()
+
+  const app = new Vue({
+    router,
+    store,
+    render: (h) => h(App),
+  })
+
+  return { app, router, store }
+}

@@ -7,18 +7,18 @@
           :style="feedsStyle"
         >
           <feed-card
-            v-for="item in feeds"
+            v-for="item in posts"
             :key="item.id"
             :feed="item"
             @click.native="openDetailPage(item)"
           />
           <div
-            v-if="pageTotal > limit"
+            v-if="postPageTotal > limit"
             class="feeds-footer"
           >
             <app-pagination
               v-model="currentPage"
-              :total="pageTotal"
+              :total="postPageTotal"
               @change-page="changePage"
             />
           </div>
@@ -34,7 +34,7 @@
             </p>
             <div class="section-body">
               <span
-                v-for="item in tags"
+                v-for="item in postTags"
                 :key="item.id"
               >
                 <a :href="`/post/tag/${item}`">
@@ -70,35 +70,48 @@
 </template>
 
 <script>
+import {
+  mapState, mapActions
+} from 'vuex'
 import FeedCard from '../components/FeedCard'
 import MicroFooter from '../components/MicroFooter'
 
 export default {
   name: 'PageIndex',
+  metaInfo: {
+    title: 'post.vue'
+  },
   components: {
     FeedCard,
     MicroFooter
   },
   data() {
     return {
-      feeds: [],
       currentPage: 1,
       limit: 10,
       scrollTop: 0,
       pageWidth: 0,
       removeScrollPageWidth: 0,
-      popularPosts: [],
-      tags: [],
-      pageTotal: 0
+      // pageTotal: 0
     }
   },
   beforeRouteUpdate(to, from, next) {
     const page = to.query.page
-    this.currentPage = page
-    this.getList(page)
+    this.currentPage = parseInt(page)
+    this.fetchPosts({
+      page,
+      limit: this.limit
+    })
+
     next()
   },
   computed: {
+    ...mapState([
+      'posts',
+      'popularPosts',
+      'postTags',
+      'postPageTotal'
+    ]),
     stickRightSpan() {
       const width = this.removeScrollPageWidth
       const asideRightSpan = (width - 992) / 2
@@ -118,7 +131,7 @@ export default {
       return {'margin-right': this.overflowHeader ? '260px' : '20px'}
     }
   },
-  mounted() {
+  asyncData() {
     const page = this.$route.query.page || 1
     this.currentPage = parseInt(page)
     this.getList(page)
@@ -136,7 +149,30 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.handleResize)
   },
+  mounted() {
+    const page = this.$route.query.page || 1
+    this.currentPage = parseInt(page)
+
+    this.fetchPosts({
+      page,
+      limit: this.limit
+    })
+
+    this.fetchPopularPosts()
+    this.fetchPostTags()
+
+    this.pageWidth = window.innerWidth
+    this.removeScrollPageWidth = document.body.clientWidth
+
+    setTimeout(() => {
+      this.removeScrollPageWidth = document.body.clientWidth
+    }, 5000)
+
+    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.handleResize)
+  },
   methods: {
+    ...mapActions(['fetchPosts', 'fetchPopularPosts', 'fetchPostTags']),
     changePage(page) {
       this.$router.push({
         path: '/post',
@@ -163,20 +199,20 @@ export default {
         this.pageTotal = res.data.data.total
       })
     },
-    getPopularPosts() {
-      this.$http.get('/post/popular/random', {
-        params: {
-          amount: 5
-        }
-      }).then(res => {
-        if(![200, 204].includes(res.status)) {
-          this.$notify('登录失败！服务器失去响应')
-          return
-        }
+    // getPopularPosts() {
+    //   this.$http.get('/post/popular/random', {
+    //     params: {
+    //       amount: 5
+    //     }
+    //   }).then(res => {
+    //     if(![200, 204].includes(res.status)) {
+    //       this.$notify('登录失败！服务器失去响应')
+    //       return
+    //     }
 
-        this.popularPosts = res.data.data
-      })
-    },
+    //     this.popularPosts = res.data.data
+    //   })
+    // },
     getPostTags() {
       this.$http.get('/post/tag/random', {
         params: {

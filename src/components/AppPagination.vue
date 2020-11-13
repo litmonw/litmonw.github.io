@@ -97,8 +97,12 @@ export default {
     }
   },
   watch: {
-    value(val) {
-      this.currentPage = val
+    value: {
+      handler: function (val) {
+        console.log('handler')
+        this.currentPage = val
+      },
+      immediate: true
     },
     total() {
       const { total, pageSize} = this

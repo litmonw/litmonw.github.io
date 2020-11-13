@@ -42,6 +42,10 @@
 </template>
 
 <script>
+import {
+  mapState,
+  mapActions
+} from 'vuex'
 export default {
   name: 'Work',
   data() {
@@ -58,9 +62,17 @@ export default {
     const page = this.$route.query.page || 1
     this.currentPage = parseInt(page)
 
-    this.getList(page)
+    // this.getList(page)
+    this.fetchWorks()
+      .then(res => {
+        console.log(res)
+        const list = res.list
+        this.list = list
+        this.pageTotal = res.total
+      })
   },
   methods: {
+    ...mapActions(['fetchWorks']),
     changePage(page) {
       this.$router.push({
         path: '/work',
@@ -69,18 +81,18 @@ export default {
         }
       })
     },
-    getList(page) {
-      this.$http.get('/project/list', {
-        params: {
-          page,
-          limit: this.list
-        }
-      }).then(res => {
-        const list = res.data.data.list
-        this.list = list
-        this.pageTotal = res.data.data.total
-      })
-    },
+    // getList(page) {
+    //   this.$http.get('/project/list', {
+    //     params: {
+    //       page,
+    //       limit: this.list
+    //     }
+    //   }).then(res => {
+    //     const list = res.data.data.list
+    //     this.list = list
+    //     this.pageTotal = res.data.data.total
+    //   })
+    // },
     openDetailPage(id) {
       const routeUrl = this.$router.resolve({
         name: 'workDetail',

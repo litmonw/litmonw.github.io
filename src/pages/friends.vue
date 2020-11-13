@@ -17,24 +17,26 @@
             class="friend-item-inner"
             @click="openFriendLinkPage(item.link)"
           >
-            <div class="friend-profile">
-              <div class="friend-avatar">
-                <img
-                  :src="item.avatar"
-                  alt="friend-avatar"
-                >
-              </div>
-              <div class="friend-info">
-                <div class="friend-name">
-                  {{ item.name }}
-                </div>
-                <div class="friend-link">
-                  {{ item.link }}
-                </div>
-              </div>
+            <div class="friend-avatar">
+              <img
+                :src="item.avatar"
+                alt="friend-avatar"
+              >
             </div>
-            <div class="friend-desc">
-              {{ item.desc }}
+            <div class="friend-name">
+              {{ item.name }}
+            </div>
+            <div class="friend-info">
+              <span class="friend-desc">
+                {{ item.desc }}
+              </span>
+              <div class="friend-link">
+                <span>访问主页</span>
+                <app-icon
+                  style="margin-left: 4px;"
+                  name="ri-external-link-line"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -44,19 +46,30 @@
 </template>
 
 <script>
+import {
+  mapState,
+  mapActions
+} from 'vuex'
+
 export default {
   name: 'Friends',
   data() {
     return {
-      friends: []
+      // friends: []
     }
   },
+  computed: {
+    ...mapState(['friends'])
+  },
   mounted() {
-    this.$http.get('/friends/list').then(res => {
-      this.friends = res.data.data
-    })
+    // this.$http.get('/friends/list').then(res => {
+    //   this.friends = res.data.data
+    // })
+
+    this.fetchFriends()
   },
   methods: {
+    ...mapActions(['fetchFriends']),
     openFriendLinkPage(url) {
       window.open(url)
     }
@@ -73,7 +86,8 @@ export default {
 .friends-container-inner {
   margin: 0 auto;
   padding-top: 16px;
-  max-width: 960px;
+  max-width: 980px;
+  border-radius: 4px;
 }
 
 .breadcrumb {
@@ -87,16 +101,19 @@ export default {
   font-size: 0;
   margin-left: -8px;
   margin-right: -8px;
+  padding: 0 16px;
   margin-bottom: -16px;
 }
 
 .friend-item {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  width: 50%;
   padding: 0 8px;
   margin-bottom: 16px;
 
   @media screen and (min-width: $screen-sm-min) {
-    width: 50%;
+    width: 33.33%;
   }
 
   @media screen and (min-width: $screen-md-min) {
@@ -107,60 +124,79 @@ export default {
 .friend-item-inner {
   display: flex;
   flex-direction: column;
-  padding: 12px 16px;
   width: 100%;
   height: 100%;
   background-color: #fff;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
 
-  &:hover {
-    background-color: hsla(0, 0%, 84.7%, 0.1);
-  }
-
-  .friend-profile {
-    display: flex;
+  @media screen and (min-width: $screen-sm-min) {
+    width: 100%;
   }
 
   .friend-avatar {
-    flex-shrink: 0;
-    width: 46px;
-    height: 46px;
-    background-color: #eee;
+    margin-top: 16px;
+    text-align: center;
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
     }
   }
 
+  .friend-name {
+    margin-top: 9px;
+    line-height: 20px;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+  }
+
   .friend-info {
-    margin-left: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px 16px;
+    height: 70px;
+    font-size: 14px;
+    color: #818181;
 
-    .friend-name {
-      font-size: 14px;
-      line-height: 20px;
-      color: #333;
-    }
-
-    .friend-link {
+    .friend-desc {
       display: -webkit-box;
-      font-size: 12px;
-      color: #909090;
+      height: 42px;
+      line-height: 1.5;
       overflow: hidden;
       text-overflow: ellipsis;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      word-break: break-word;
+    }
 
-      &:hover {
-        color: $primary-color;
-      }
+    .friend-link {
+      display: none;
+      padding: 0 8px;
+      height: 32px;
+      line-height: 32px;
+      color: #0084ff;
+      border: 1px solid #0084ff;
     }
   }
 
-  .friend-desc {
-    margin-top: 8px;
-    font-size: 12px;
+  @media screen and (min-width: $screen-md-min) {
+    &:hover {
+      transform: scale(1.05);
+
+      .friend-info {
+        .friend-desc {
+          display: none;
+        }
+
+        .friend-link {
+          display: inline-flex;
+          align-items: center;
+        }
+      }
+    }
   }
 }
 </style>
